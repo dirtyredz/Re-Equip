@@ -1,0 +1,27 @@
+{
+  "name": "reequip",
+  "version": "1.0.0",
+  "description": "Skyrim SE mod to re-equip all gear and weapons using skse to allow player made enchantments to properly be applied to the player.",
+  "scripts": {
+    "compile": "node ./utils/compile.js",
+    "package": "node ./utils/package.js",
+    "deploy": "npm run compile && npm run package",
+    "update:esp": "node ./utils/copy_esp_from_data_dir.js"
+  },
+  "SkyrimSE_Path": "C:/Program Files (x86)/Steam/steamapps/common/Skyrim Special Edition/",
+  "Flags_Path": "Data/Source/Scripts/TESV_Papyrus_Flags.flg",
+  "Imports_Path": [
+    "Data/Source/Scripts"
+  ],
+  "esp": [
+    "ReEquip"
+  ],
+  "author": "Digital Redz | David McClain (Dirtyredz)",
+  "license": "ISC",
+  "devDependencies": {
+    "archiver": "^3.0.0",
+    "del": "^3.0.0",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7"
+  }
+}
