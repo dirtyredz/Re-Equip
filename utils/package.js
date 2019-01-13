@@ -35,7 +35,7 @@ var copyDir = function(src, dest) {
 
 del(['*.zip']).then(paths => {
   // create a file to stream archive data to.
-  var output = fs.createWriteStream(path.join(path.normalize(__dirname + "/../"), 'ReEquip-v' + package.version + '.zip'));
+  var output = fs.createWriteStream(path.join(__dirname, "/../", 'ReEquip-v' + package.version + '.zip'));
   var archive = archiver('zip', {
     zlib: { level: 9 } // Sets the compression level.
   });
@@ -45,7 +45,7 @@ del(['*.zip']).then(paths => {
   output.on('close', function() {
     console.log(archive.pointer() + ' total bytes');
     console.log('archiver has been finalized and the output file descriptor has closed.');
-    del([path.normalize(__dirname + "/../Source")])
+    del([path.join(__dirname + "/../Source")])
   });
 
   // This event is fired when the data source is drained no matter what was the data source.
@@ -73,20 +73,25 @@ del(['*.zip']).then(paths => {
   archive.pipe(output);
 
   // append a file from stream
-  archive.append(
-    fs.createReadStream(
-      path.normalize(__dirname + '/../ReEquip.esp')
-    ),
-    { name: 'ReEquip.esp' }
-  );
+  for (let index = 0; index < package.esp.length; index++) {
+    archive.append(
+      fs.createReadStream(
+        path.join(__dirname + `/../${package.esp}.esp`)
+      ),
+      { name: `${package.esp}.esp` }
+    );
+  }
 
   // append files from a sub-directory, putting its contents at the root of archive
-  archive.directory(path.normalize(__dirname + '/../Scripts/'), "Scripts");
-  // archive.directory('mods/', true);
-  mkdir(path.normalize(__dirname + '/../Source/'))
-  copyDir(path.normalize(__dirname + '/../Scripts/Source'), path.normalize(__dirname + '/../Source/Scripts'))
+  archive.directory(path.join(__dirname + '/../Scripts/'), "Scripts");
 
-  archive.directory(path.normalize(__dirname + '/../Source/'), "Source");
+
+  // For Development only
+  mkdir(path.join(__dirname + '/../Source/'))
+  copyDir(path.join(__dirname + '/../Scripts/Source'), path.join(__dirname + '/../Source/Scripts'))
+  archive.directory(path.join(__dirname + '/../Source/'), "Source");
+
+
   // finalize the archive (ie we are done appending files but streams have to finish yet)
   // 'close', 'end' or 'finish' may be fired right after calling this method so register to them beforehand
   archive.finalize();
