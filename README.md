@@ -16,6 +16,7 @@ Assigning and using the hotkey will quickly apply the power, cast it, and re-qui
 The mod includes an MCM menu to assign a hotkey, and to toggle re-equipping armor and/or weapons.
 
 Important
+Tested/Built using: Skyrim - 1.5.62.0.8  & SKSE64 - 2.0.12 rel 6
 This mod requires SKSE64.
 This mod requires SkyUi.
 
