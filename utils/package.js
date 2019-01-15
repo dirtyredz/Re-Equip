@@ -85,12 +85,12 @@ del(['*.zip']).then(paths => {
   // append files from a sub-directory, putting its contents at the root of archive
   archive.directory(path.join(__dirname + '/../Scripts/'), "Scripts");
 
-
-  // For Development only
-  mkdir(path.join(__dirname + '/../Source/'))
-  copyDir(path.join(__dirname + '/../Scripts/Source'), path.join(__dirname + '/../Source/Scripts'))
-  archive.directory(path.join(__dirname + '/../Source/'), "Source");
-
+  if (process.env.NODE_ENV === 'development') {
+    // For Development only
+    mkdir(path.join(__dirname + '/../Source/'))
+    copyDir(path.join(__dirname + '/../Scripts/Source'), path.join(__dirname + '/../Source/Scripts'))
+    archive.directory(path.join(__dirname + '/../Source/'), "Source");
+  }
 
   // finalize the archive (ie we are done appending files but streams have to finish yet)
   // 'close', 'end' or 'finish' may be fired right after calling this method so register to them beforehand

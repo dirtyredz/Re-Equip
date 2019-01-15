@@ -5,7 +5,8 @@
   "scripts": {
     "compile": "node ./utils/compile.js",
     "package": "node ./utils/package.js",
-    "deploy": "npm run compile && npm run package",
+    "deploy:dev": "cross-env NODE_ENV=development npm run compile && npm run package",
+    "deploy:prod": "cross-env NODE_ENV=production npm run compile && npm run package",
     "update:esp": "node ./utils/copy_esp_from_data_dir.js"
   },
   "SkyrimSE_Path": "C:/Program Files (x86)/Steam/steamapps/common/Skyrim Special Edition/",
@@ -20,6 +21,7 @@
   "license": "ISC",
   "devDependencies": {
     "archiver": "^3.0.0",
+    "cross-env": "^5.2.0",
     "del": "^3.0.0",
     "fs": "0.0.1-security",
     "path": "^0.12.7"
